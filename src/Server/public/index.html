@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css"
+</head>
+
+<body>
+    <h1>トイレの空き状況</h1>
+    <div id="canvas_wrapper">
+        <canvas id="canvas" width="1280" height="1080"></canvas>
+    </div>
+    <script type="module">
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const roomImage = new Image();
+        roomImage.src = "images/部屋.svg";
+        const vacancyImage = new Image();
+        vacancyImage.src = "images/空室.svg";
+        const occupiedImage = new Image();
+        occupiedImage.src = "images/満室.svg";
+        occupiedImage.width = 1280;
+        occupiedImage.height = 720;
+        vacancyImage.width = 62
+        vacancyImage.height = 82;
+        setInterval(async () => {
+            const res = await fetch("/api/rooms");
+            const data = await res.json();
+            console.log(data);
+            // document.getElementById("room1").innerText = data.room1;
+            // document.getElementById("room2").innerText = data.room2;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(roomImage, 0, 0, 1280, 720);
+            if (data.room1 == "空室") {
+                ctx.drawImage(vacancyImage, 185, 400, 235, 275);
+            } else {
+                ctx.drawImage(occupiedImage, 185, 400, 235, 275);
+            }
+            if (data.room2 == "空室") {
+                ctx.drawImage(vacancyImage, 415, 400, 235, 275);
+            } else {
+                ctx.drawImage(occupiedImage, 415, 400, 235, 275);
+            }
+        }, 100);
+    </script>
+</body>
+</html>

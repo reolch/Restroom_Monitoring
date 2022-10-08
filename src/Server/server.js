@@ -3,10 +3,11 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 
 const app  = express();
+app.use(express.static('public'));
 const port = 3000;
 
-let room1 = "空室"
-let room2 = "空室"
+let room1 = "使用中"
+let room2 = "使用中"
 
 // urlencodedとjsonは別々に初期化する
 app.use(bodyParser.urlencoded({
@@ -18,11 +19,7 @@ app.use(bodyParser.json());
 app.get("/", (req, res) =>{
   console.log(room1);
   console.log(room2);
-  res.render('index.ejs', {
-    room1: room1,
-    room2: room2
-  });
-  console.log("/ へアクセスがありました");
+  res.send("./public/index.html")
 });
 
 // ルーティングの設定
@@ -42,6 +39,11 @@ app.post("/", (req, res) =>{
     console.log("/ へアクセスがありました");
   });
 
+    app.get("/api/rooms", (req, res) => {
+    res.json({
+        room1, room2
+    });
+    });
 // HTTPサーバを起動する
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
