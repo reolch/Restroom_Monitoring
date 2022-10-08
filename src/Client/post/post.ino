@@ -3,8 +3,9 @@
 #include <ArduinoJson.h>
 
 // ルーター接続情報
-#define WIFI_SSID "VPN"
-#define WIFI_PASSWORD "uw76007fhex5s"
+#define WIFI_SSID "WiFi"
+// TODO: パスワードをハッシュ化する
+#define WIFI_PASSWORD "kdncbdxkr45d"
 
 const int ROOM1_BTN = 2;
 boolean postFlag = false;
@@ -29,7 +30,7 @@ void loop() {
     Serial.println("LOW");
     post("1F-1", "満室");
   }
-  delay(1000);
+  delay(100);
 }
 
 /* Wi-Fiルーターに接続する */
@@ -71,7 +72,7 @@ void post(String name, String state) {
 
   Serial.println(http.getString());
   http.end(); //Close connection
-  delay(1000);
+  delay(50);
 }
 
 // ボタン押下時割り込み処理
