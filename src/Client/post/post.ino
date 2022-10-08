@@ -3,9 +3,9 @@
 #include <ArduinoJson.h>
 
 // ルーター接続情報
-#define WIFI_SSID "WiFi"
+#define WIFI_SSID "VPN"
 // TODO: パスワードをハッシュ化する
-#define WIFI_PASSWORD "kdncbdxkr45d"
+#define WIFI_PASSWORD "94272bb7cf7c77277edfbbd2f8985270911f6faa2fc8f029714af463bd943543"
 
 const int ROOM1_BTN = 2;
 boolean postFlag = false;
